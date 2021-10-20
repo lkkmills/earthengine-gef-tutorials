@@ -1,0 +1,60 @@
+/////////////////
+// GEFID = 10539 //
+/////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 10539
+
+// PROTECTED AREAS
+// 1 - Kon Chu Rang Natural Reserve
+// 2 - Kon Ka Kinh National Park
+// 3 - Krong Trai Natural Reserve
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 10377), // WDPAID for Kon Chu
+  ee.Filter.eq("WDPAID", 10378), // WDPAID for Kon Ka
+  ee.Filter.eq("WDPAID", 10379))) // WDPAID for Krong Trai
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_10539 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_10539);
+
+// GEOBOUNDARIES ADM2
+// 1 - KBang
+// 2 - Mang Yang
+// 3 - An Khe
+// 4 - Dak Po
+// 5 - Kong Chro
+// 6 - Ia Pa
+// 7 - Ayun Pa
+// 8 - Phu Thien
+// 9- Krong Pa
+// 10 - Dong Xuan
+// 11 - Son Hoa
+// 12 - Song Hinh
+
+var adm2 = ee.FeatureCollection('users/lkmills/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq('shapeName','KBang'), ee.Filter.eq('shapeName','Mang Yang'), ee.Filter.eq('shapeName','An Khe'),
+  ee.Filter.eq('shapeName','Dak Po'), ee.Filter.eq('shapeName','Kong Chro'), ee.Filter.eq('shapeName','Ia Pa'), 
+  ee.Filter.eq('shapeName','Ayun Pa'), ee.Filter.eq('shapeName','Phu Thien'),
+  ee.Filter.eq('shapeName','Krong Pa'),ee.Filter.eq('shapeName','Dong Xuan'), 
+  ee.Filter.eq('shapeName','Son Hoa'), ee.Filter.eq('shapeName','Song Hinh')));
+
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_10539 = adm2.map(setGEFID);
+print('ADM2: ', adm2_10539);
