@@ -3,10 +3,10 @@
 This repository is a collection of tutorials and guides for GEF data collection on Google Earth Engine (GEE). Tutorials are sorted by project ID, and they walk through the collection process for each relevant boundary. Some tutorials require imported data, and those datasets can be found in the "data" folder.
 
 ## Table of Contents:
-* Working with geoBoundaries data
+* [Working with geoBoundaries data](#working-with-geoboundaries-data)
    * How to download data from geoBoundaries
    * How to visualize data from geoBoundaries
-* Uploading data to Google Earth Engine
+* [Uploading data to Google Earth Engine](#uploading-data-to-google-earth-engine)
 
 ## Working with geoBoundaries data
 
