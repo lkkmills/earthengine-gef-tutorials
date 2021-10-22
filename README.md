@@ -37,3 +37,5 @@ This repository is a collection of tutorials and guides for GEF data collection 
 For our data collection, we will only be using ADM2 and higher. If you read a document report and want to know which administrative level a boundary belongs to, this tool helps you visualize and check.
 
 ## Uploading data to Google Earth Engine
+
+## Using data within the GEE catalog
