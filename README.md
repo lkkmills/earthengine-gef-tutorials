@@ -38,4 +38,21 @@ For our data collection, we will only be using ADM2 and higher. If you read a do
 
 ## Uploading data to Google Earth Engine
 
+Read: [Importing Table Data](https://developers.google.com/earth-engine/guides/table_upload)
+
+Features & FeatureCollections
+* [Feature Overview](https://developers.google.com/earth-engine/guides/features)
+* [FeatureCollection Overview](https://developers.google.com/earth-engine/guides/feature_collections)
+* [Feature and FeatureCollection Visualization](https://developers.google.com/earth-engine/guides/feature_collections_visualizing)
+* [FeatureCollection Information and Metadata](https://developers.google.com/earth-engine/guides/feature_collection_info)
+* [Filtering a FeatureCollection](https://developers.google.com/earth-engine/guides/feature_collection_filtering)
+* [Mapping Over a FeatureCollection](https://developers.google.com/earth-engine/guides/feature_collection_mapping)
+* [Reducing a FeatureCollection](https://developers.google.com/earth-engine/guides/feature_collection_reducing)
+
 ## Using data within the GEE catalog
+
+As an example, we'll import the [World Database on Protected Areas (WDPA)](https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons) from the data catalog.
+
+"The World Database on Protected Areas (WDPA) is the most up-to-date and complete source of information on protected areas, updated monthly with submissions from governments, non-governmental organizations, landowners, and communities. It is managed by the United Nations Environment Programme's World Conservation Monitoring Centre (UNEP-WCMC) with support from IUCN and its World Commission on Protected Areas (WCPA)."
+
+
