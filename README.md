@@ -14,7 +14,7 @@ This repository is a collection of tutorials and guides for GEF data collection 
 
 1. Navigate to the [geoBoundaries website](https://www.geoboundaries.org/).
 2. Click ["Download Data"](https://www.geoboundaries.org/index.html#getdata).
-3. Filter by the [ISO-3 code](https://unstats.un.org/unsd/tradekb/knowledgebase/country-code) of the country (ex. Vietnam = VNM).
+3. Filter by the [ISO-3 code](https://unstats.un.org/unsd/tradekb/knowledgebase/country-code) of the country (Vietnam = VNM, Cambodia = KHM, Laos = LAO).
 4. Download the administrative level you are looking for (none of our data collection will use ADM0 or ADM1).
 
 ![image](https://user-images.githubusercontent.com/76752916/138480197-b771e763-80c8-4626-b464-2706aa8168d6.png)
