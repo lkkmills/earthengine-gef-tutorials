@@ -40,6 +40,12 @@ For our data collection, we will only be using ADM2 and higher. If you read a do
 
 Read: [Importing Table Data](https://developers.google.com/earth-engine/guides/table_upload)
 
+## Using data within the GEE catalog
+
+As an example, we'll import the [World Database on Protected Areas (WDPA)](https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons) from the data catalog.
+
+"The World Database on Protected Areas (WDPA) is the most up-to-date and complete source of information on protected areas, updated monthly with submissions from governments, non-governmental organizations, landowners, and communities. It is managed by the United Nations Environment Programme's World Conservation Monitoring Centre (UNEP-WCMC) with support from IUCN and its World Commission on Protected Areas (WCPA)."
+
 Features & FeatureCollections
 * [Feature Overview](https://developers.google.com/earth-engine/guides/features)
 * [FeatureCollection Overview](https://developers.google.com/earth-engine/guides/feature_collections)
@@ -49,10 +55,31 @@ Features & FeatureCollections
 * [Mapping Over a FeatureCollection](https://developers.google.com/earth-engine/guides/feature_collection_mapping)
 * [Reducing a FeatureCollection](https://developers.google.com/earth-engine/guides/feature_collection_reducing)
 
-## Using data within the GEE catalog
+Earth Engine hosts a variety of table datasets. To load a table dataset, provide the table ID to the FeatureCollection constructor. 
 
-As an example, we'll import the [World Database on Protected Areas (WDPA)](https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons) from the data catalog.
+For example, to load WDPA data, copy the Earth Engine snippet from here:
 
-"The World Database on Protected Areas (WDPA) is the most up-to-date and complete source of information on protected areas, updated monthly with submissions from governments, non-governmental organizations, landowners, and communities. It is managed by the United Nations Environment Programme's World Conservation Monitoring Centre (UNEP-WCMC) with support from IUCN and its World Commission on Protected Areas (WCPA)."
+https://developers.google.com/earth-engine/datasets/catalog/WCMC_WDPA_current_polygons
 
+The Earth Engine snippet is the following:
 
+ee.FeatureCollection("WCMC/WDPA/current/polygons")
+
+Code block that can be copied directly into GEE:
+
+```
+var dataset = ee.FeatureCollection('WCMC/WDPA/current/polygons');
+
+var visParams = {
+  palette: ['2ed033', '5aff05', '67b9ff', '5844ff', '0a7618', '2c05ff'],
+  min: 0.0,
+  max: 1550000.0,
+  opacity: 0.8,
+}; // Visualization parameters
+
+var image = ee.Image().float().paint(dataset, 'REP_AREA');
+
+Map.setCenter(41.104, -17.724, 6);
+Map.addLayer(image, visParams, 'WCMC/WDPA/current/polygons');
+Map.addLayer(dataset, null, 'for Inspector', false);
+```
