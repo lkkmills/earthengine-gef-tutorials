@@ -6,7 +6,6 @@ This repository is a collection of tutorials and guides for GEF data collection 
 * [Working with geoBoundaries data](#working-with-geoboundaries-data)
    * [How to download data from geoBoundaries](#how-to-download-data-from-geoboundaries)
    * [How to visualize data from geoBoundaries](#how-to-visualize-data-from-geoboundaries)
-
 * [Uploading data to Google Earth Engine](#uploading-data-to-google-earth-engine)
 
 ## Working with geoBoundaries data
