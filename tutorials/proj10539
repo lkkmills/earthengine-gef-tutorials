@@ -47,6 +47,7 @@ print('Protected Areas: ', protected_areas_10539);
 // 12 - Song Hinh
 
 // Upload geoBoundaries Vietnam ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
 var adm2 = ee.FeatureCollection('users/lkmills/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
   ee.Filter.eq('shapeName','KBang'), ee.Filter.eq('shapeName','Mang Yang'), ee.Filter.eq('shapeName','An Khe'),
   ee.Filter.eq('shapeName','Dak Po'), ee.Filter.eq('shapeName','Kong Chro'), ee.Filter.eq('shapeName','Ia Pa'), 
