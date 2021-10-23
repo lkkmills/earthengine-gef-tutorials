@@ -35,6 +35,7 @@ print('Protected Areas: ', protected_areas_10787);
 // 2 - Ninh Hai
 
 // Upload geoBoundaries Vietnam ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
 var adm2 = ee.FeatureCollection('users/lkmills/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
   ee.Filter.eq("shapeName", 'Thuan Bac'),
   ee.Filter.eq("shapeName", 'Ninh Hai')))
@@ -51,6 +52,7 @@ print('ADM2: ', adm2_10787);
 // 13 communes (not named in PIF, had to identify through map)
 
 // Upload Vietnam ADM3 data to GEE
+// REPLACE 'users/lkmills/dk039bc2779' WITH YOUR SHAPEFILE ID
 var adm3 = ee.FeatureCollection('users/lkmills/dk039bc2779').filter(ee.Filter.or(
   ee.Filter.eq('id_3',7490), ee.Filter.eq('id_3',7502), ee.Filter.eq('id_3',7494), ee.Filter.eq('id_3',7503), 
   ee.Filter.eq('id_3',7501), ee.Filter.eq('id_3',7461), ee.Filter.eq('id_3',7458), ee.Filter.eq('id_3',7514), 
