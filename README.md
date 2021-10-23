@@ -13,7 +13,7 @@ This repository is a collection of tutorials and guides for GEF data collection 
 ## How to use this repository
 
 1. Copy and paste the tutorials into your GEE code editor.
-2. Import data where specified (either download yourself or refer to the "data" folder).
+2. Import data where specified (either download yourself or refer to the ["data" folder](https://github.com/lkkmills/earthengine-gef-tutorials/tree/main/data)).
 3. Use these scripts as building blocks to write your own scripts.
 
 ## Working with geoBoundaries data
