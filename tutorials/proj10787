@@ -19,6 +19,8 @@ var project_id = 10787
 // 1 - Nui Chua National Park
 // 2 - Phong Nha-Ke Bang National Park
 
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
 var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
   ee.Filter.eq("WDPAID", 303041), // WDPAID for Nui Chua
   ee.Filter.eq("WDPAID", 10345))) // WDPAID for Phong Nha-Ke Bang
