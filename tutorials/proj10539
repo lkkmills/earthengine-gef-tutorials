@@ -20,6 +20,8 @@ var project_id = 10539
 // 2 - Kon Ka Kinh National Park
 // 3 - Krong Trai Natural Reserve
 
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
 var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
   ee.Filter.eq("WDPAID", 10377), // WDPAID for Kon Chu
   ee.Filter.eq("WDPAID", 10378), // WDPAID for Kon Ka
