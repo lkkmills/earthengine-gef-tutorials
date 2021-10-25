@@ -1,0 +1,152 @@
+NOT FINISHED
+
+///////////////////
+// GEFID = 10499 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 10499
+
+// PROTECTED AREAS
+// 1 - Nam Et-Phou Louey (NEPL) National Park
+// 2 - Phou Khao Khouay (PKK) National Protected Area
+// 3 - Tor Sib/ Phou Samsoum
+// 4 - Phou Hin Poun NPA
+// 5 - Nakai Nam Theun NP
+// 6 - Hin Nam No NP
+// 7 - Khoun Xe Nongma PPA
+// 8 - Laving Laverne NPA
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 555703743), // WDPAID for Nam Et-Phou Louey (NEPL) National Park
+  ee.Filter.eq("WDPAID", 10192), // Phou Khao Khouay (PKK) National Protected Area
+  ee.Filter.eq("WDPAID", 555703751), // WDPAID for Tor Sib/ Phou Samsoum
+  ee.Filter.eq("WDPAID", 61501), // WDPAID for Phou Hin Poun NPA
+  ee.Filter.eq("WDPAID", 555703745), // WDPAID for Nakai Nam Theun NP
+  ee.Filter.eq("WDPAID", 555703744), // WDPAID for Hin Nam No NP
+  ee.Filter.eq("WDPAID", 555703750), // WDPAID for Khoun Xe Nongma PPA
+  ee.Filter.eq("WDPAID", 555703748))) // WDPAID for Laving Laverne NPA
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_10499 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_10499);
+
+// GEOBOUNDARIES ADM2
+// Houaphan (6):
+// • Et
+// • Xiengkhor
+// • Hiem
+// • Houa Meung
+// • Xone
+// • Xam Neua 
+// Louang Prabang (5):
+// • Pakxeng
+// • Phonthong
+// • Phonxai
+// • Viengkhan
+// • Ngoi
+// • Xieng Khouang (1): 
+// • Phoukhout
+// Bolikhamxay (1):
+// • Thapabath*
+// • Xaysomboun (2): 
+// • Hom*
+// • Long Xan 
+// Vientiane Province (9):
+// • Keo Udom
+// • Thulakom
+// • Kasi
+// • Vang Vieng
+// • Hinher
+// • Feuang
+// • Mad
+// • Meun
+// • Xanakharm 
+// Vientiane Prefecture(2): 
+// • Xaythany
+// • Pak Ngeum
+// Khammouane (9):
+// • Nakai
+// • Gnommalath 
+// • Boualapha
+// • Hinboun
+// • Khounkham 
+// • Mahaxay
+// • Thakek
+// • Xebangfay
+// • Xayboathong Bolikhamxay (1): 
+// • Khamkeut*
+// Savannakhet (7):
+// • Songkhone
+// • Thapangthong 
+// • Phin
+// • Phalanxay
+// • Xonbuly
+// • Xepon
+// • Vilabuly
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
+
+var adm2_test = ee.FeatureCollection('users/lkmills/geoBoundaries-LAO-ADM2');
+print(adm2_test)
+
+var adm2 = ee.FeatureCollection('users/lkmills/geoBoundaries-LAO-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Add'),
+  ee.Filter.eq("shapeName", 'Xiengkhor'),
+  ee.Filter.eq("shapeName", 'Hiem'),
+  ee.Filter.eq("shapeName", 'Huameuang'),
+  ee.Filter.eq("shapeName", 'Xon'),
+  ee.Filter.eq("shapeName", 'Xamneua'),
+  ee.Filter.eq("shapeName", 'Pak Xeng'),
+  ee.Filter.eq("shapeName", 'Phonthong'),
+  ee.Filter.eq("shapeName", 'Phonxay'),
+  ee.Filter.eq("shapeName", 'Viengkham'),
+  ee.Filter.eq("shapeName", 'Ngoi'),
+  ee.Filter.eq("shapeName", 'Thaphabath'),
+  ee.Filter.eq("shapeName", 'Home'),
+  ee.Filter.eq("shapeName", 'Longsane'),
+  ee.Filter.eq("shapeName", 'Keo Oudom'),
+  ee.Filter.eq("shapeName", 'Thoulakhom'),
+  ee.Filter.eq("shapeName", 'Kasy'),
+  ee.Filter.eq("shapeName", 'Vangvieng'),
+  ee.Filter.eq("shapeName", 'Hinherb'),
+  ee.Filter.eq("shapeName", 'Feuang'),
+  ee.Filter.eq("shapeName", 'Mad'),
+  ee.Filter.eq("shapeName", 'Meun'),
+  ee.Filter.eq("shapeName", 'Xanakharm'),
+  ee.Filter.eq("shapeName", 'Xaythany'),
+  ee.Filter.eq("shapeName", 'Nakay'),
+  ee.Filter.eq("shapeName", 'Hinboon'),
+  ee.Filter.eq("shapeName", 'Khounkham'),
+  ee.Filter.eq("shapeName", 'Mahaxay'),
+  ee.Filter.eq("shapeName", 'Thakhek'),
+  ee.Filter.eq("shapeName", 'Xebangfay'),
+  ee.Filter.eq("shapeName", 'Xayphoothong'),
+  ee.Filter.eq("shapeName", 'Phine'),
+  ee.Filter.eq("shapeName", 'Phalanxay'),
+  ee.Filter.eq("shapeName", 'Xonbuly'),
+  ee.Filter.eq("shapeName", 'Bualapha'),
+  ee.Filter.eq("shapeName", 'Vilabuly')))
+  .map(setGEFID);
+  
+// Can't find: Pak Ngeum, Gnommalath, Xepon
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_10499 = adm2.map(setGEFID);
+print('ADM2: ', adm2_10499);
