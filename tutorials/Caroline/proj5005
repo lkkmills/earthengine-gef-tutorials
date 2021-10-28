@@ -1,0 +1,47 @@
+///////////////////
+// GEFID = 5005 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(107.535, 16.202, 8);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 5005
+
+// PROTECTED AREAS
+// 1 - Phong Dien
+// 2 - Sao La
+// 3 - North Huong Hoa
+// 4 - Ho Chi Minh Lengendary Trail
+// 5 -  Dakrong
+// 6 - Song Thanh
+// 7 - Ngoc Linh - Quang Nam and Kon Tum
+
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 303039), // WDPAID for Phong Dien (1)
+  ee.Filter.eq("WDPAID", 303100), // WDPAID for Sao La (2)
+  ee.Filter.eq("WDPAID", 555594125), // WDPAID for Bac Huong Hoa (3)
+// Ho Chi Minh Legendary Trail?? (4)
+  ee.Filter.eq("WDPAID", 10384), // WDPAID for Dakrong (5) 
+  ee.Filter.eq("WDPAID", 303066), // WDPAID for Song Thanh (6)
+  ee.Filter.eq("WDPAID", 303064), // WDPAID for Ngoc Linh (Quang Nam) (7a)
+  ee.Filter.eq("WDPAID", 303065))) // WDPAID for Ngoc Linh (Kon Tum) (7b)
+
+
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_5005 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_5005);
