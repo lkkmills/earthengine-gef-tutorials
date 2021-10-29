@@ -1,0 +1,39 @@
+/////////////////
+// GEFID = 4034 //
+/////////////////
+
+// SET-UP
+
+// Center the map on Laos PDR
+Map.setCenter(102.4955, 17.8563, 6);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4034
+
+
+// GEOBOUNDARIES ADM2
+// Savannakhet Province
+// 1 - Outhoomphone
+// 2 - Champhone
+// Saravan Province
+// 3 - Khongxedone
+// Xayaboury Province (Sainyabuli, Xaignabouli)
+// 4 - Phiang
+// 5 - Parklai
+
+
+// Upload geoBoundaries Lao PDR ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-LAO-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq('shapeName','Outhoomphone'), ee.Filter.eq('shapeName','Champhone'), ee.Filter.eq('shapeName','Khongxedone'),
+  ee.Filter.eq('shapeName','Phiang'), ee.Filter.eq('shapeName','Parklai')));
+
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_4034 = adm2.map(setGEFID);
+print('ADM2: ', adm2_4034);
