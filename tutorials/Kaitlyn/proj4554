@@ -1,0 +1,42 @@
+/////////////////
+// GEFID = 4554 //
+/////////////////
+
+// SET-UP
+
+// Center the map on Laos PDR
+Map.setCenter(104.4955, 15.8563, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4554
+
+
+// GEOBOUNDARIES ADM2
+// 1 - Lamarm
+// 2 - Thateng
+// 3 - Dakcheung
+// 4 - Khaleum // might be spelled Kaleum
+// 5 - Saravane
+// 6 - Ta Oi
+// 7 - Vapi // might be spelled Vapy 
+// 8 - Khongsedone -- might be spelled Khongxedone
+// 9 - Lakhonpheng -- Lakhonepheng
+// 10 - Laongam -- Lao Ngarm
+
+// Upload geoBoundaries Lao PDR ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-LAO-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq('shapeName','Lamarm'), ee.Filter.eq('shapeName','Thateng'), ee.Filter.eq('shapeName','Dakcheung'),
+  ee.Filter.eq('shapeName','Kaleum'), ee.Filter.eq('shapeName','Saravane'), ee.Filter.eq('shapeName','Ta Oi'), 
+  ee.Filter.eq('shapeName','Vapy'), ee.Filter.eq('shapeName','Khongxedone'),
+  ee.Filter.eq('shapeName','Lakhonepheng'),ee.Filter.eq('shapeName','Lao Ngarm')));
+
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_4554 = adm2.map(setGEFID);
+print('ADM2: ', adm2_4554);
