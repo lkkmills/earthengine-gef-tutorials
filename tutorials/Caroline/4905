@@ -1,0 +1,40 @@
+
+///////////////////
+// GEFID = 4905 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Cambodia
+Map.setCenter(104.908, 12.741, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4905
+
+// PROTECTED AREAS
+// 1 - Snoul Wildlife Sanctuary // cannot find on Protected Planet (not on map)
+// 2 - Phnom Prich Wildlife Sanctuary
+// 3 - Mondulkiri Protected Forest along the border with Vietnam (MPF, 372,971 hectares)
+// 4 - Seima Biodiversity Conservation Area
+// 5 - Lomphat Wildlife Sanctuary
+// 6 - Phnom Nam Lyr Wildlife Sanctuary
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 10120), // WDPAID for Phmom Prech (2)
+  ee.Filter.eq("WDPAID", 555703474), // WDPAID for Sre Pok - formerly Mondulkiri Protected Forest (3)
+  ee.Filter.eq("WDPAID", 555703472), // WDPAID for Kaev Seima (4)
+  ee.Filter.eq("WDPAID", 10121), // WDPAID for Lumphat (5)
+  ee.Filter.eq("WDPAID", 68868)))// WDPAID for Phnom Namlier (6)
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+//print('Protected Areas: ', protected_areas);
+
+var protected_areas_4905 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_4905);
