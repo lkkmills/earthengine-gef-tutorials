@@ -31,7 +31,7 @@ var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(
   ee.Filter.eq("WDPAID", 303039), // WDPAID for Phong Dien (1)
   ee.Filter.eq("WDPAID", 303100), // WDPAID for Sao La (2)
   ee.Filter.eq("WDPAID", 555594125), // WDPAID for Bac Huong Hoa (3)
-// Ho Chi Minh Legendary Trail?? (4)
+// Ho Chi Minh Legendary Trail - Not included (too broad)
   ee.Filter.eq("WDPAID", 10384), // WDPAID for Dakrong (5) 
   ee.Filter.eq("WDPAID", 303066), // WDPAID for Song Thanh (6)
   ee.Filter.eq("WDPAID", 303064), // WDPAID for Ngoc Linh (Quang Nam) (7a)
