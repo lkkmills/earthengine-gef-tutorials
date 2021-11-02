@@ -30,5 +30,5 @@ var adm3 = ee.FeatureCollection('users/jdobrien/viet_adm3')
 Map.addLayer(adm3, {color: 'green'}, 'adm3');
 //print('ADM3: ', adm3);
 
-var adm3_10787 = adm3.map(setGEFID);
-print('ADM3: ', adm3_10787);
+var adm3_9484 = adm3.map(setGEFID);
+print('ADM3: ', adm3_9484);
