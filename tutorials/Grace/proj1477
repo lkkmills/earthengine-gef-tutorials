@@ -1,0 +1,34 @@
+///////////////////
+// GEFID = 1477 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 1477
+
+// PROTECTED AREAS
+// 1 - Nui Chua National Park
+// 2 - Phong Nha-Ke Bang National Park
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 303059), // WDPAID for Pu Luong
+  ee.Filter.eq("WDPAID", 7878))) // WDPAID for Cuc Phuong
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_1477 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_1477);
+
