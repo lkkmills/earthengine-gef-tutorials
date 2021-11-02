@@ -1,0 +1,35 @@
+///////////////////
+// GEFID = 9361 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 9361
+
+// PROTECTED AREAS
+// 1 - Cu Lao Cham Hoi An Biosphere Reserve
+// 2 - Hoang Lien Son Biosphere Reserve
+// 3 - Dong Nai Biosphere Reserve
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 478282), // WDPAID for Cu Lao Cham Hoi
+  ee.Filter.eq("WDPAID", 303108), // WDPAID for Hoang Lien Son
+  ee.Filter.eq("WDPAID", 555594129))) //WDPAID for Dong Nai
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_9361 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_9361);
