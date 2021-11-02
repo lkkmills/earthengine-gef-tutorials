@@ -1,0 +1,34 @@
+///////////////////
+// GEFID = 6924 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 9484
+
+// // VIETNAM ADM3, UNIVERSITY OF CALIFORNIA, BERKLEY
+// // https://maps.princeton.edu/catalog/stanford-dk039bc2779
+
+// // Upload Vietnam ADM3 data to GEE
+
+var adm3 = ee.FeatureCollection('users/jdobrien/viet_adm3')
+.filter(ee.Filter.or(
+  ee.Filter.eq('name_2','V?nh Y�n'), ee.Filter.eq('name_2', 'Hu?'), ee.Filter.eq('name_2','H� Giang')))
+.map(setGEFID);
+
+
+
+Map.addLayer(adm3, {color: 'green'}, 'adm3');
+//print('ADM3: ', adm3);
+
+var adm3_6924 = adm3.map(setGEFID);
+print('ADM3: ', adm3_6924);
