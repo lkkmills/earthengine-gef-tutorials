@@ -1,0 +1,53 @@
+///////////////////
+// GEFID = 9640 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Cambodia
+Map.setCenter(104.109, 12.865, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 9640
+
+// PROTECTED AREAS
+// 1 - Preah Sihanouk "Ream" National Park
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 68859))) // WDPAID for Ream
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+print('Protected Areas: ', protected_areas);
+
+var protected_areas_9640 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_9640);
+
+
+// TONLE SAP GREAT LAKE
+
+// Upload Tonle Sap data to GEE
+var tonle_sap = ee.FeatureCollection('users/jdobrien/tonle_sap')
+.map(setGEFID);
+
+Map.addLayer(tonle_sap, {color: 'blue'}, 'Tonle Sap');
+print('Tonle Sap: ', tonle_sap);
+
+var tonle_sap_9640 = tonle_sap.map(setGEFID);
+print('Tonle Sap: ', tonle_sap_9640);
+
+// MEKONG RIVER
+
+// Upload Asia Rivers data to GEE
+var mekong_riverbasin = ee.FeatureCollection('users/jdobrien/mekong_basin')
+.map(setGEFID);
+
+Map.addLayer(mekong_riverbasin, {color: 'blue'}, 'Mekong River');
+print('Mekong River: ', mekong_riverbasin);
