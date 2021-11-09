@@ -1,0 +1,51 @@
+/////////////////
+// GEFID = 4434 //
+/////////////////
+
+// SET-UP
+
+// Center the map on Cambodia
+Map.setCenter(104.9910, 12.5657, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4434
+
+// PROTECTED AREAS
+// 1 - Phnom Tbaeng Community Forestry
+
+// 2 - Veal Chhleuy CF **CAN'T FIND
+// 3 - Por Rieng Community Protected Area **CAN'T FIND
+// 4 - Por Mek Boun CF **CAN'T FIND
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 555703484))) // WDPAID for Phnom Tbaeng
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_4434 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_4434);
+
+// GEOBOUNDARIES ADM3
+// 1 - Popok commune
+
+// Upload Cambodia ADM3 data to GEE
+// REPLACE 'users/lkmills/dk039bc2779' WITH YOUR SHAPEFILE ID
+//var adm3 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-KHM-ADM3').filter(ee.Filter.or(
+//  ee.Filter.eq('shapeID','KHM-ADM3-89927896B94519321')).map(setGEFID));
+var adm3 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-KHM-ADM3').filter(ee.Filter.eq('shapeID','KHM-ADM3-89927896B94519321'));
+
+
+Map.addLayer(adm3, {color: 'red'}, 'adm3');
+print('ADM3: ', adm3);
+
+var adm3_4434 = adm3.map(setGEFID);
+print('ADM3: ', adm3_4434);
