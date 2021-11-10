@@ -1,5 +1,5 @@
 ///////////////////
-// GEFID = 9146 //
+// GEFID = 6940 //
 ///////////////////
 
 // SET-UP
@@ -13,7 +13,7 @@ var setGEFID = function(feature) {
 };
 
 // Define the project ID
-var project_id = 9146
+var project_id = 6940
 
 
 // Call in geoBoundaries ADM2 for LAO
@@ -26,10 +26,10 @@ var adm2 = ee.FeatureCollection('users/jdobrien/gB-LAO-ADM2')
   .map(setGEFID);
 
 Map.addLayer(adm2, {color: 'green'}, 'adm2');
-//print('ADM3: ', adm3);
+//print('ADM2: ', adm2);
 
-var adm2_6924 = adm2.map(setGEFID);
-print('ADM2: ', adm2_6924);
+var adm2_6940 = adm2.map(setGEFID);
+print('ADM2: ', adm2_6940);
 
 // PROTECTED AREAS
 // 1 -  Phou Xang He National Conservation Forest
@@ -49,5 +49,5 @@ var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(
 Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
 print('Protected Areas: ', protected_areas);
 
-var protected_areas_9146 = protected_areas.map(setGEFID);
-print('Protected Areas: ', protected_areas_9146);
+var protected_areas_6940 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_6940);
