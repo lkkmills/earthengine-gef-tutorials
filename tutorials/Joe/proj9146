@@ -1,0 +1,53 @@
+///////////////////
+// GEFID = 9146 //
+///////////////////
+
+// SET-UP
+
+// Center the map on LAO
+Map.setCenter(106.992, 16.730, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 9146
+
+
+// Call in geoBoundaries ADM2 for LAO
+
+var adm2 = ee.FeatureCollection('users/jdobrien/gB-LAO-ADM2')
+.filter(ee.Filter.or(
+  ee.Filter.eq('shapeName','Phine'), ee.Filter.eq('shapeName','Sepone'), ee.Filter.eq('shapeName','Thapangthong'),
+  ee.Filter.eq('shapeName','Songkhone'), ee.Filter.eq('shapeName','Xonbuly')
+  ))
+  .map(setGEFID);
+
+Map.addLayer(adm2, {color: 'green'}, 'adm2');
+//print('ADM3: ', adm3);
+
+var adm2_6924 = adm2.map(setGEFID);
+print('ADM2: ', adm2_6924);
+
+// PROTECTED AREAS
+// 1 -  Phou Xang He National Conservation Forest
+// 2 - Dong Phou Vieng National Conservation Forest
+// 3 - Se Ta Nouan - Phan Nak Conservation Forest
+// 4 - Ong Mang National Conservation Forest 
+
+// Can't find boundaries for 3 and 4. Also can't find anything about them by searching
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 18866), // WDPAID for Phou Xang He
+  ee.Filter.eq("WDPAID", 312986) // WDPAID for Dong Phou Vieng
+  )).map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+print('Protected Areas: ', protected_areas);
+
+var protected_areas_9146 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_9146);
