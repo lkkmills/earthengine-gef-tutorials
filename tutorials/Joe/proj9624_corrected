@@ -13,7 +13,7 @@ var setGEFID = function(feature) {
 };
 
 // Define the project ID
-var project_id = 9484
+var project_id = 6924
 
 // // // VIETNAM ADM3, UNIVERSITY OF CALIFORNIA, BERKLEY
 // // // https://maps.princeton.edu/catalog/stanford-dk039bc2779
