@@ -35,11 +35,11 @@ var project_id = 6924
 
 //Commented out all above ADM3 colection and below used geoBoundaries ADM2 dataset instead
 
-var adm3 = ee.FeatureCollection('users/jdobrien/gB-VNM-ADM2').filter(ee.Filter.or(
+var adm2 = ee.FeatureCollection('users/jdobrien/gB-VNM-ADM2').filter(ee.Filter.or(
   ee.Filter.eq('shapeName','Hue'), ee.Filter.eq('shapeName','Ha Giang'), ee.Filter.eq('shapeName','Vinh Yen'))).map(setGEFID);
 
-Map.addLayer(adm3, {color: 'green'}, 'adm3');
+Map.addLayer(adm2, {color: 'green'}, 'adm2');
 //print('ADM3: ', adm3);
 
-var adm3_6924 = adm3.map(setGEFID);
-print('ADM3: ', adm3_6924);
+var adm2_6924 = adm2.map(setGEFID);
+print('ADM2: ', adm2_6924);
