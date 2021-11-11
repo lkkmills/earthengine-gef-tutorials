@@ -1,0 +1,25 @@
+///////////////////
+// GEFID = 4 //
+///////////////////
+
+// Centering on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+var project_id = 4
+
+// Protected Areas
+// 1 - Hon Mun
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 303032))) // WDPAID for Hon Mun
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'red'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_4 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_4);
