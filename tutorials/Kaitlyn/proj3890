@@ -1,0 +1,52 @@
+/////////////////
+// GEFID = 3890 //
+/////////////////
+
+// SET-UP
+
+// Center the map on Cambodia
+Map.setCenter(104.9910, 12.5657, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 3890
+
+// PROTECTED AREAS
+// 1 - Pream Krasaob Beach/Wildlife Sanctuary
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 68864)))
+  .map(setGEFID); // WDPAID for Pream Krasaob
+  
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_3890 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_3890);
+
+// GEOBOUNDARIES ADM3
+// Prey Nob District
+// 1 - Ou Oknha Heng *Can't find
+// 2 - Toul Toteung *Can't find
+// 3 - Prey Nob *Can't find
+// 4 - ???????? There is a fourth region that I cannot find on any source other than the project document
+// Kaoh Kong District
+// 6 - Toul Ki Kroum Village *Can't find
+// 7 - Prek 1 *Can't find
+// 8 - Prek 2 *Can't find
+// 9 - Prek Soch *Can't find
+
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-KHM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq('shapeName','Prey Nob'), ee.Filter.eq('shapeName','Kaoh Kong')));
+
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_3890 = adm2.map(setGEFID);
+print('ADM2: ', adm2_3890);
