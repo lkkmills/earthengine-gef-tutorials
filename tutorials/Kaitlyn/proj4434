@@ -38,7 +38,6 @@ print('Protected Areas: ', protected_areas_4434);
 // 1 - Popok commune
 
 // Upload Cambodia ADM3 data to GEE
-// REPLACE 'users/lkmills/dk039bc2779' WITH YOUR SHAPEFILE ID
 //var adm3 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-KHM-ADM3').filter(ee.Filter.or(
 //  ee.Filter.eq('shapeID','KHM-ADM3-89927896B94519321')).map(setGEFID));
 var adm3 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-KHM-ADM3').filter(ee.Filter.eq('shapeID','KHM-ADM3-89927896B94519321'));
