@@ -1,0 +1,29 @@
+/////////////////
+// GEFID = 3873 //
+/////////////////
+
+// SET-UP
+
+// Center the map on Lao PDR
+Map.setCenter(102.4955, 19.8563, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 3873
+
+// PROTECTED AREAS
+// 1 - Nam Et-Phou Louey National Protected Area (National Biodiversity Conservation Area)
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 555703743))) // WDPAID for Nam Et-Phou
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_3873 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_3873);
