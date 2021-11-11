@@ -20,6 +20,7 @@ var project_id = 4680
 // 2 - Prek Toal Core Area
 // 3 - Boeng Chhmar Core Area
 // 4 - Stung Sen Core Area
+// 5 - Tonle Sap
 
 // Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
 
@@ -36,3 +37,8 @@ Map.addLayer(protected_areas, {color: 'green'}, 'protected_areas');
 var protected_areas_4680 = protected_areas.map(setGEFID);
 print('Protected Areas: ', protected_areas_4680);
 
+var tonle_sap = ee.FeatureCollection("users/gamorales/tonle_sap");
+Map.addLayer(tonle_sap, {color: 'blue'}, 'tonle_sap');
+
+var tonle_sap_4680 = tonle_sap.map(setGEFID);
+print('Tonle Sap: ', tonle_sap_4680);
