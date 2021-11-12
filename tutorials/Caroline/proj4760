@@ -43,7 +43,7 @@ print('Protected Areas: ', protected_areas_4760);
 // 3 - Phu Loc district
 // 4 - Quang Dien
 // 5 - Phong Dien district
-// 6- Huong Tra Township(?)
+// 6-  Huong Tra Township
 
 // Upload geoBoundaries Vietnam ADM2 data to GEE
 // REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
