@@ -1,0 +1,77 @@
+///////////////////
+// GEFID = 4760 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(107.42347646429978, 16.649761251124975, 6);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4760
+
+// PROTECTED AREAS
+// 1 - Thai Thuy
+// 2 - Tam Giang-Cau Hai
+// 3 - Bach Ma National Park
+// 4 - Phong Dien Nature Reserve
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 303019), // WDPAID for Thai Thuy
+  ee.Filter.eq("WDPAID", 303051), // WDPAID for Tam Giang-Cau Hai
+  ee.Filter.eq("WDPAID", 10110), // WDPAID for Bach Ma National Park
+  ee.Filter.eq("WDPAID", 303039))) // WDPAID for  Phong Dien Nature Reserve
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_4760 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_4760);
+
+
+// GEOBOUNDARIES ADM2
+// 1 - Thai Binh
+// 2 - Phu Vang district
+// 3 - Phu Loc district
+// 4 - Quang Dien
+// 5 - Phong Dien district
+// 6- Huong Tra Township(?)
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
+var adm2 = ee.FeatureCollection('users/ceedwards/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Thai Binh'),
+  ee.Filter.eq("shapeName", 'Phu Vang'),
+  ee.Filter.eq("shapeName", 'Phu Loc'),
+  ee.Filter.eq("shapeName", 'Quang Dien'),
+  ee.Filter.eq("shapeName", 'Phong Dien'),
+  ee.Filter.eq("shapeName", 'Huong Tra')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+print('ADM2: ', adm2);
+
+var adm2_4760 = adm2.map(setGEFID);
+print('ADM2: ', adm2_4760);
+
+var adm3 = ee.FeatureCollection('users/ceedwards/VNM_adm3').filter(ee.Filter.or(
+  ee.Filter.eq('ID_3',9321), ee.Filter.eq('ID_3',9290), ee.Filter.eq('ID_3', 9300),
+  ee.Filter.eq('ID_3',9294), ee.Filter.eq('ID_3', 9272),ee.Filter.eq('ID_3', 9263),
+  ee.Filter.eq('ID_3', 9216))).map(setGEFID); 
+  // quang thai, Dien Hoa, Phu Thuan, Vinh Phu, Vinh Giang, Loc Binh, Huong Phong
+
+Map.addLayer(adm3, {color: 'green'}, 'adm3');
+print('ADM3: ', adm3);
+
+
+
+var adm3_4760 = adm3.map(setGEFID);
+print('ADM3: ', adm3_4760);
