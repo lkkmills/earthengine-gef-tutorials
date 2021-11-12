@@ -1,0 +1,59 @@
+///////////////////
+// GEFID = 4659 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(109.181, 13.916, 6);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4659
+
+// PROTECTED AREAS
+// 1 - Quy Nhon Bay
+// 2 - Nha Phu Lagoon
+// 3 - Mui Ca Mau
+// 4 - Hon Me
+// 5 - Cu Mong
+// 6 - O Loan Lagoon 
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 303074), // WDPAID for Quy Nhon Bay (1)
+  ee.Filter.eq("WDPAID", 303077), // WDPAID for Nha Phu Lagoon (2)
+  ee.Filter.eq("WDPAID", 555594122), // WDPAID for Cai Mau/Dat Mui Nature Reserve (3)
+  ee.Filter.eq("WDPAID", 303032), //WDPAID for Hon Me
+  ee.Filter.eq("WDPAID", 303075), //WDPAID for Cu Mong
+  ee.Filter.eq("WDPAID", 303076))) //WDPAID for O Loan
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_4659 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_4659);
+
+
+// GEOBOUNDARIES ADM2
+// 1 - Quy Nhon Group
+// 5 - Tuy An
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/ceedwards/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Qui Nhơn'),
+  ee.Filter.eq("shapeName", 'Tuy An')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+print('ADM2: ', adm2);
+
+var adm2_4659 = adm2.map(setGEFID);
+print('ADM2: ', adm2_4659);
+
