@@ -1,0 +1,84 @@
+///////////////////
+// GEFID = 5318 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Cambodia
+Map.setCenter(104.908, 12.741, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 5318
+
+//Meteorological Stations
+// 1) Phnom Penh
+// 2) Prey Veng
+// 3) Svay Rieng
+// 4) Kampot
+// 5) Takeo 
+// 6) Koh Kong
+// 7) Sihaanouck Ville
+// 8) Kompong Speu
+// 9) Kompong Chhang
+// 10) Pursat (upgrade is not required)
+// 11) Banteay Meanchey (upgrade is not required)
+// 12) Battambang
+// Construct a point from coordinates.
+//var point = ee.Geometry.Point([104.564,11.600]);
+
+// Apply the coordinates method to the Point object.
+//var pointCoordinates = point.coordinates();
+
+// Print the result to the console.
+//print('point.coordinates(...) =', pointCoordinates);
+
+// Display relevant geometries on the map.
+//Map.setCenter(11.600, 104.564, 15);
+// Map.addLayer(point,
+//             {'color': 'red'},
+//             'Geometry [red]: point');
+// var point = ee.Geometry.Point([105.150,11.467]);
+// Map.addLayer(point,
+//             {'color': 'red'},
+//             'Geometry [red]: point');
+var points = /* color: #d63000 */ee.Geometry.MultiPoint(
+    [[104.564, 11.600],
+     [105.150, 11.467],
+     [105.783, 11.083],
+     [104.217, 10.617],
+     [104.800, 10.983],
+     [103.000, 11.633],
+     [103.483, 10.633],
+     [104.667, 12.241],
+     [103.900, 12.550],
+     [102.971, 13.609],
+     [103.200, 13.100],
+     [102.618, 12.859],
+     [103.300, 14.160],
+     [104.960, 13.780],
+     [103.850, 13.367],
+     [104.900, 12.686],
+     [105.270, 12.000],
+     [106.024, 12.286],
+     [105.971, 13.519],
+     [107.000, 13.730],
+     [102.617, 12.817]]);
+Map.addLayer(points, {color: 'red'}, 'points');
+
+var mp = ee.FeatureCollection(points)
+print(mp)
+
+var bufferPoly = function(feature) {
+  return feature.buffer(500);   // substitute in your value of Z here
+};
+
+var buffers = mp.map(bufferPoly);
+Map.addLayer(buffers, {color: 'purple'}, 'buffers');
+print(buffers);
+var buffers_5318 = buffers.map(setGEFID);
+print('Buffers ', buffers_5318);
