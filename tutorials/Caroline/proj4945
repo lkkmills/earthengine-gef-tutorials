@@ -1,0 +1,52 @@
+// * could not find Prek Thnot watereshed* 
+
+///////////////////
+// GEFID = 4945 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Cambodia
+Map.setCenter(104.908, 12.741, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4945
+
+// PROTECTED AREAS
+// 1 - Cardamom Corridor (Cardamom Mountains protected area network)
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 555703505))) // WDPAID for Cardamom Corridor
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+//print('Protected Areas: ', protected_areas);
+
+var protected_areas_4945 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_4945);
+
+// GEOBOUNDARIES ADM2
+// 1 - Aoral
+// 2 - Phnum Sruoch
+// 3 - Thma Bang
+
+// Upload geoBoundaries Cambodia ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
+var adm2 = ee.FeatureCollection('users/ceedwards/geoBoundaries-KHM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Aoral'),
+    ee.Filter.eq("shapeName", 'Thma Bang'),
+  ee.Filter.eq("shapeName", 'Phnum Sruoch')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_4945 = adm2.map(setGEFID);
+print('ADM2: ', adm2_4945);
