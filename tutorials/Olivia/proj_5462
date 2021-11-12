@@ -1,0 +1,60 @@
+///////////////////
+// GEFID = 5462 //
+/////not sure what size buffer//////////////
+
+// SET-UP
+
+// Center the map on Laos
+Map.setCenter(104.531, 18.194, 6);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 5462
+
+//Meteorological Stations
+// 1) Phnom Penh
+// 2) Prey Veng
+// 3) Svay Rieng
+// 4) Kampot
+// 5) Takeo 
+// 6) Koh Kong
+// 7) Sihaanouck Ville
+// 8) Kompong Speu
+// 9) Kompong Chhang
+// 10) Pursat (upgrade is not required)
+// 11) Banteay Meanchey (upgrade is not required)
+// 12) Battambang
+var points = /* color: #d63000 */ee.Geometry.MultiPoint(
+    [[102.442778, 18.088056],
+     [100.437222, 20.261944],
+     [100.10705, 20.32265],
+     [101.416389, 20.930833],
+     [101.140833, 21.179722],
+     [101.493056, 20.154167],
+     [102.155833, 19.735278],
+     [103.570556, 19.651667],
+     [101.475917, 19.556667],
+     [101.508889, 19.009167],
+     [102.448889, 18.493056],
+     [102.116111, 18.655556],
+     [103.090278, 18.906389],
+     [106.164167, 15.461667],
+     [105.853889, 14.118333]]);
+Map.addLayer(points, {color: 'red'}, 'points');
+
+var mp = ee.FeatureCollection(points)
+print(mp)
+
+var bufferPoly = function(feature) {
+  return feature.buffer(500);   // substitute in your value of Z here
+};
+
+var buffers = mp.map(bufferPoly);
+Map.addLayer(buffers, {color: 'purple'}, 'buffers');
+print(buffers);
+var buffers_5462 = buffers.map(setGEFID);
+print('Buffers ', buffers_5462);
