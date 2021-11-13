@@ -1,0 +1,86 @@
+///////////////////
+// GEFID = 10187 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 10187
+
+// PROTECTED AREAS
+// 1 - Nui Chua National Park
+// 2 - Phong Nha-Ke Bang National Park
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+// var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+//   ee.Filter.eq("WDPAID", 303041), // WDPAID for Nui Chua
+//   ee.Filter.eq("WDPAID", 10345))) // WDPAID for Phong Nha-Ke Bang
+//   .map(setGEFID);
+  
+// Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// // print('Protected Areas: ', protected_areas);
+
+// var protected_areas_10187 = protected_areas.map(setGEFID);
+// print('Protected Areas: ', protected_areas_10187);
+
+// GEOBOUNDARIES ADM2
+
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
+var adm2 = ee.FeatureCollection('users/amsilva01/geoBoundaries-LAO-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Luangprabang'),
+  ee.Filter.eq("shapeName", 'Xieng Ngeun'),
+  ee.Filter.eq("shapeName", 'Nan'),
+  ee.Filter.eq("shapeName", 'Park Ou'),
+  ee.Filter.eq("shapeName", 'Nambak'),
+  ee.Filter.eq("shapeName", 'Ngoi'),
+  ee.Filter.eq("shapeName", 'Pak Xeng'),
+  ee.Filter.eq("shapeName", 'Phonxay'),
+  ee.Filter.eq("shapeName", 'Chomphet'), 
+  ee.Filter.eq("shapeName", 'Viengkham'),
+  ee.Filter.eq("shapeName", 'Phoukhoune'), 
+  ee.Filter.eq("shapeName", 'Phonthong'),
+  ee.Filter.eq("shapeName", 'Xamneua'), 
+  ee.Filter.eq("shapeName", 'Xiengkhor'),
+  ee.Filter.eq("shapeName", 'Hiem'),
+  ee.Filter.eq("shapeName", 'Viengxay'),
+  ee.Filter.eq("shapeName", 'Huameuang'), 
+  ee.Filter.eq("shapeName", 'Xamtay'),
+  ee.Filter.eq("shapeName", 'Sopbao'), 
+  ee.Filter.eq("shapeName", 'Kuan'),
+  ee.Filter.eq("shapeName", 'Xon')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_10187 = adm2.map(setGEFID);
+print('ADM2: ', adm2_10187);
+
+// VIETNAM ADM3, UNIVERSITY OF CALIFORNIA, BERKLEY
+// https://maps.princeton.edu/catalog/stanford-dk039bc2779
+// 13 communes (not named in PIF, had to identify through map)
+
+// Upload Vietnam ADM3 data to GEE
+// REPLACE 'users/lkmills/dk039bc2779' WITH YOUR SHAPEFILE ID
+// var adm3 = ee.FeatureCollection('users/lkmills/dk039bc2779').filter(ee.Filter.or(
+//   ee.Filter.eq('id_3',7490), ee.Filter.eq('id_3',7502), ee.Filter.eq('id_3',7494), ee.Filter.eq('id_3',7503), 
+//   ee.Filter.eq('id_3',7501), ee.Filter.eq('id_3',7461), ee.Filter.eq('id_3',7458), ee.Filter.eq('id_3',7514), 
+//   ee.Filter.eq('id_3',7451), ee.Filter.eq('id_3',7456), ee.Filter.eq('id_3',7438), ee.Filter.eq('id_3',7455), 
+//   ee.Filter.eq('id_3',7453))).map(setGEFID);
+
+// Map.addLayer(adm3, {color: 'green'}, 'adm3');
+// //print('ADM3: ', adm3);
+
+// var adm3_10187 = adm3.map(setGEFID);
+// print('ADM3: ', adm3_10187);
