@@ -31,5 +31,6 @@ var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(
 Map.addLayer(protected_areas, {color: 'red'}, 'protected_areas');
 // print('Protected Areas: ', protected_areas);
 
-var protected_areas_4680 = protected_areas.map(setGEFID);
-print('Protected Areas: ', protected_areas_4680);
+var protected_areas_1477 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_1477);
+
