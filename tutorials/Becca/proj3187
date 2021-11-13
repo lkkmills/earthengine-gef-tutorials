@@ -1,0 +1,43 @@
+///////////////////
+// GEFID = 3187 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(109.0522, 11.7683, 9);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 3187
+
+// PROTECTED AREAS
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 303041))) // WDPAID for Nui Chua National Park
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_3187 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_3187);
+
+// GEOBOUNDARIES ADM2
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/rmgurysh/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Ninh Hai')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_3187 = adm2.map(setGEFID);
+print('ADM2: ', adm2_3187);
