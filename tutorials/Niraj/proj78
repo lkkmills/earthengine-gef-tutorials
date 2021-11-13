@@ -1,0 +1,44 @@
+///////////////////
+// GEFID = 78 //
+///////////////////
+
+// Centering on Laos
+Map.setCenter(104.531, 18.194, 6);
+
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+var project_id = 78
+
+// Protected Areas
+
+// 1. Xe Pian
+// 2. Xe Bang Nouan
+// 3. Nam Poui
+// 4. Nam Kading
+// 5. Nam Ma
+// 6. Nakai Plateau/Nam Teun
+// 7. Phou Xang He
+// 8. Phou Xieng Thong
+// 9. Dong Ampham
+// 10. Phou Daen Din
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 12176), // WDPAID for Xe Pian
+  ee.Filter.eq("WDPAID", 18877), // WDPAID for Xe Bang Nouan
+  ee.Filter.eq("WDPAID", 10132), // WDPAID for Nam Poui
+  ee.Filter.eq("WDPAID", 18896), // WDPAID for Nam Kading
+  ee.Filter.eq("WDPAID", 71252), // WDPAID for Nam Ma
+  ee.Filter.eq("WDPAID", 555703745), // WDPAID for Nakai Plateau/Nam Teun
+  ee.Filter.eq("WDPAID", 18866), // WDPAID for Phou Xang He
+  ee.Filter.eq("WDPAID", 18893), // WDPAID for Phou Xieng Thong
+  ee.Filter.eq("WDPAID", 18872), // WDPAID for Dong Amphan
+  ee.Filter.eq("WDPAID", 12182))) // WDPAID for Phou Daen Din
+  .map(setGEFID);
+
+Map.addLayer(protected_areas, {color: 'red'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_78 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_78);
