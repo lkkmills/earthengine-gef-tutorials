@@ -1,0 +1,49 @@
+////
+
+///////////////////
+// GEFID = 5421 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Cambodia
+Map.setCenter(104.908, 12.741, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 5421
+
+
+
+// GEOBOUNDARIES ADM2
+// 1 - Teuk Phos District x
+// 2 - Banan District x 
+// 3 - Banteay Srei District x 
+// 4 - Kampong Svay District x
+// 5 - Santuk District x
+// 6 - Prey Nob District x 
+// 7 - Tuek Chhou District x
+// 8 - Bavet district
+
+// Upload geoBoundaries Cambodia ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
+var adm2 = ee.FeatureCollection('users/owachob/geoBoundaries-KHM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Tuek Phos'),
+  ee.Filter.eq("shapeName", 'Banan'),
+  ee.Filter.eq("shapeName", 'Banteay Srei'),  
+  ee.Filter.eq("shapeName", 'Kampong Svay'),
+  ee.Filter.eq("shapeName", 'Santuk'),
+  ee.Filter.eq("shapeName", 'Prey Nob'),
+  ee.Filter.eq("shapeName", 'Tuek Chhou'),
+  ee.Filter.eq("shapeName", 'Bavet')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_5421 = adm2.map(setGEFID);
+print('ADM2: ', adm2_5421);
