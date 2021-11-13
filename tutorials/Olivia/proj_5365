@@ -1,0 +1,63 @@
+///////////////////
+// GEFID = 5365 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.326, 12.375, 8);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 5365
+
+//Meteorological Stations
+// 1) HITC building
+// 2) VN Friendship culture palace of Hanoi
+// 3) Hanoi Sheraton Hotel
+// 4)  Melia Hanoi Hotel
+// 5) N05 Building
+// 6) FTP telecom Building
+// 7) JW Marriot Hanoi Hotel
+// 8) Majestic Hotel
+// 9) Cendeluxe Hotel
+// 10) Michelia hotel 
+// 11)  Vinpearl Resort
+// 12) Somerset Service Apartment 
+// 13) Riverside Renaissance Hotel
+// 14) Intercontinental Hotel
+// 15) Pedagogical University of HCMC
+var points = /* color: #d63000 */ee.Geometry.MultiPoint(
+    [[105.783327055546, 21.03650109],
+     [105.8441566, 21.02281528],
+     [105.8318405, 20.32265],
+     [105.8486661, 21.02441709],
+     [105.802351, 21.00895604],
+     [105.8330784, 21.01664606],
+     [105.7826506, 21.00806459],
+     [106.7061557, 10.77302061],
+     [109.2939409, 13.08315694],
+     [109.1954796, 12.25336418],
+     [109.2476717, 12.22237701],
+     [106.7031337, 10.78988017],
+     [106.7066843, 10.77442107],
+     [106.700789, 10.78153606],
+     [106.6829215, 10.76117008]]);
+Map.addLayer(points, {color: 'red'}, 'points');
+
+var mp = ee.FeatureCollection(points)
+print(mp)
+
+var bufferPoly = function(feature) {
+  return feature.buffer(500);   // substitute in your value of Z here
+};
+
+var buffers = mp.map(bufferPoly);
+Map.addLayer(buffers, {color: 'purple'}, 'buffers');
+print(buffers);
+var buffers_5365 = buffers.map(setGEFID);
+print('Buffers ', buffers_5365);
