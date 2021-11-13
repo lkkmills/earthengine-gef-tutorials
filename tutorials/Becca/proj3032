@@ -1,0 +1,30 @@
+///////////////////
+// GEFID = 3032//
+///////////////////
+
+// SET-UP
+
+// Center the map 
+Map.setCenter(108.163, 12.692, 6);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 3032
+
+// GEOBOUNDARIES ADM2
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/rmgurysh/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Phu Cat'),
+  ee.Filter.eq("shapeName", 'Bien Hoa')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_3032 = adm2.map(setGEFID);
+print('ADM2: ', adm2_3032);
