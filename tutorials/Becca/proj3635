@@ -1,0 +1,36 @@
+///////////////////
+// GEFID = 3635 //
+///////////////////
+
+// SET-UP
+
+// Center the map 
+Map.setCenter(105.17, 12.803, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 3635
+
+// PROTECTED AREAS
+
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 313447), // WDPAID for Aural National Park
+  ee.Filter.eq("WDPAID", 555703465))) // WDPAID for Kirirom National Park
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_3635 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_3635);
+
+
+var tonle_sap = ee.FeatureCollection('users/rmgurysh/tonle_sap');
+Map.addLayer(tonle_sap,{color:'blue'},'tonlesap');
