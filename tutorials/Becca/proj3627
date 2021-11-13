@@ -1,0 +1,46 @@
+///////////////////
+// GEFID = 3627 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(105.9578, 22.382, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 3627
+
+// PROTECTED AREAS
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+  ee.Filter.eq("WDPAID", 10188), // WDPAID for Ba Be
+  ee.Filter.eq("WDPAID", 303017))) // WDPAID for Kim Hy
+  .map(setGEFID);
+  
+Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// print('Protected Areas: ', protected_areas);
+
+var protected_areas_3627 = protected_areas.map(setGEFID);
+print('Protected Areas: ', protected_areas_3627);
+
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/rmgurysh/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Ba Be'),
+  ee.Filter.eq("shapeName", 'Na Ri'),
+  ee.Filter.eq("shapeName", 'Pac Nam')))
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_3627 = adm2.map(setGEFID);
+print('ADM2: ', adm2_3627);
+
