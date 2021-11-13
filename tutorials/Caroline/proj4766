@@ -1,0 +1,50 @@
+
+///////////////////
+// GEFID = 4766 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Viet Nam
+Map.setCenter(108.036, 15.9, 6);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 4766
+
+
+// GEOBOUNDARIES ADM2
+// 1 - Liên Chiểu
+
+// Upload geoBoundaries Cambodia ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
+var adm2 = ee.FeatureCollection('users/ceedwards/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Lien Chieu'))) // IZ Lien Chieu
+  .map(setGEFID);
+  
+Map.addLayer(adm2, {color: 'green'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_4766 = adm2.map(setGEFID);
+print('ADM2: ', adm2_4766);
+
+
+//ADM 3 Boundaries
+// 1 - IZ Pho Noi A (the commune contains Pho Noi A)
+// 2 - IZ Tra Noc (the commune contains IZ Tra Noc)
+
+var adm3 = ee.FeatureCollection('users/ceedwards/VNM_adm3').map(setGEFID).
+filter(ee.Filter.or(ee.Filter.eq('ID_3', 4393), ee.Filter.eq('ID_3',2343)))
+//ADM 3 boundaries that contain IZ Pho Noi A and Tra Noc
+
+
+Map.addLayer(adm3, {color: 'green'}, 'adm3');
+print('ADM3: ', adm3);
+
+
+var adm3_4766 = adm3.map(setGEFID);
+print('ADM3: ', adm3_4766);
