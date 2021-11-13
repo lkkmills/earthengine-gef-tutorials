@@ -5,7 +5,7 @@
 // SET-UP
 
 // Center the map 
-Map.setCenter(106.32, 17.539, 6);
+Map.setCenter(106.32, 17.539, 5);
 
 // Function to assign each boundary its corresponding project ID
 var setGEFID = function(feature) {
