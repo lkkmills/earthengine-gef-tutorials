@@ -30,8 +30,6 @@ print('Protected Areas: ', protected_areas_3890);
 
 // GEOBOUNDARIES ADM3
 // Prey Nob District
-// 1 - Ou Oknha Heng *Can't find
-// 2 - Toul Toteung *Can't find
 // 3 - Prey Nob *Can't find
 // 4 - ???????? There is a fourth region that I cannot find on any source other than the project document
 // Kaoh Kong District
@@ -50,3 +48,21 @@ Map.addLayer(adm2, {color: 'red'}, 'adm2');
 
 var adm2_3890 = adm2.map(setGEFID);
 print('ADM2: ', adm2_3890);
+
+// GEOBOUNDARIES ADM3
+// Prey Nob District
+// 1 - Ou Oknha Heng
+// 2 - Toul Totueng
+
+// Upload Cambodia ADM3 data to GEE
+//var adm3 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-KHM-ADM3').filter(ee.Filter.or(
+//  ee.Filter.eq('shapeID','KHM-ADM3-89927896B94519321')).map(setGEFID));
+var adm3 = ee.FeatureCollection('users/kmcrowley/geoBoundaries-KHM-ADM3').filter(ee.Filter.or(
+  ee.Filter.eq('shapeID','KHM-ADM3-89927896B50169023'), ee.Filter.eq('shapeID', 'KHM-ADM3-89927896B22946634')));
+
+
+Map.addLayer(adm3, {color: 'blue'}, 'adm3');
+print('ADM3: ', adm3);
+
+var adm3_3890 = adm3.map(setGEFID);
+print('ADM3: ', adm3_3890);
