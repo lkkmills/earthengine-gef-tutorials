@@ -1,0 +1,33 @@
+///////////////////
+// GEFID = 1296 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.253, 15.648, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 1296
+
+// GEOBOUNDARIES ADM2
+// Thua Thien Hue Province
+// 1 - A Luoi District
+// 2 - Nam Dong District
+// 3 - Huong Thuy District
+
+// Upload geoBoundaries VNM ADM2 data to GEE
+var adm2 = ee.FeatureCollection('users/gamorales/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
+  ee.Filter.eq('shapeName','A Luoi'), ee.Filter.eq('shapeName','Nam Dong'), ee.Filter.eq('shapeName','Huong Thuy')));
+
+  
+Map.addLayer(adm2, {color: 'green'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm2_1296 = adm2.map(setGEFID);
+print('ADM2: ', adm2_1296);
