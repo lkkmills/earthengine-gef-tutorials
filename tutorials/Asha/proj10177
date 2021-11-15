@@ -1,0 +1,92 @@
+///////////////////
+// GEFID = 10177 //
+///////////////////
+
+// SET-UP
+
+// Center the map on Vietnam
+Map.setCenter(108.048, 14.511, 7);
+
+// Function to assign each boundary its corresponding project ID
+var setGEFID = function(feature) {
+  return feature.set('GEFID', project_id);
+};
+
+// Define the project ID
+var project_id = 10177
+
+// PROTECTED AREAS
+// 1 - Mekong Basin
+
+var river = ee.FeatureCollection('users/amsilva01/mekong_basin').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", '405068')))
+  .map(setGEFID);
+  
+Map.addLayer(river, {color: 'blue'}, 'river basin');
+//print('ADM2: ', adm2);
+
+var river_basin_10177 = river.map(setGEFID);
+print('River Basin: ', river_basin_10177);
+
+// 405068
+
+
+// var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.eq("WDPAID", 555543096));
+
+
+
+// Find WDPAIDs by searching protected areas here: https://www.protectedplanet.net/en
+
+// var protected_areas = ee.FeatureCollection('WCMC/WDPA/current/polygons').filter(ee.Filter.or(
+//   ee.Filter.eq("WDPAID", 303041), // WDPAID for Nui Chua
+//   ee.Filter.eq("WDPAID", 10345))) // WDPAID for Phong Nha-Ke Bang
+//   .map(setGEFID);
+  
+// Map.addLayer(protected_areas, {color: 'purple'}, 'protected_areas');
+// // print('Protected Areas: ', protected_areas);
+
+// var protected_areas_10177 = protected_areas.map(setGEFID);
+// print('Protected Areas: ', protected_areas_10177);
+
+// GEOBOUNDARIES ADM1
+// 1 - Pursat
+// 2 - Battambang
+// 3 - Bantey Meanchey
+// 4 - Siem Reap
+// 5 - Kampong Chhnang
+// 6 - Kampong Thom
+
+// Upload geoBoundaries Vietnam ADM2 data to GEE
+// REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
+var adm1 = ee.FeatureCollection('users/amsilva01/geoBoundaries-KHM-ADM1').filter(ee.Filter.or(
+  ee.Filter.eq("shapeName", 'Pursat'),
+  ee.Filter.eq("shapeName", 'Battambang'),
+  ee.Filter.eq("shapeName", 'Bantey Meanchey'),
+  ee.Filter.eq("shapeName", 'Siem Reap'),
+  ee.Filter.eq("shapeName", 'Kampong Chhnang'),
+  ee.Filter.eq("shapeName", 'Kampong Thom')))
+  .map(setGEFID);
+  
+Map.addLayer(adm1, {color: 'red'}, 'adm2');
+//print('ADM2: ', adm2);
+
+var adm1_10177 = adm1.map(setGEFID);
+print('ADM1: ', adm1_10177);
+
+// VIETNAM ADM3, UNIVERSITY OF CALIFORNIA, BERKLEY
+// https://maps.princeton.edu/catalog/stanford-dk039bc2779
+// 13 communes (not named in PIF, had to identify through map)
+
+// Upload Vietnam ADM3 data to GEE
+// REPLACE 'users/lkmills/dk039bc2779' WITH YOUR SHAPEFILE ID
+// var adm3 = ee.FeatureCollection('users/lkmills/dk039bc2779').filter(ee.Filter.or(
+//   ee.Filter.eq('id_3',7490), ee.Filter.eq('id_3',7502), ee.Filter.eq('id_3',7494), ee.Filter.eq('id_3',7503), 
+//   ee.Filter.eq('id_3',7501), ee.Filter.eq('id_3',7461), ee.Filter.eq('id_3',7458), ee.Filter.eq('id_3',7514), 
+//   ee.Filter.eq('id_3',7451), ee.Filter.eq('id_3',7456), ee.Filter.eq('id_3',7438), ee.Filter.eq('id_3',7455), 
+//   ee.Filter.eq('id_3',7453))).map(setGEFID);
+
+// Map.addLayer(adm3, {color: 'green'}, 'adm3');
+// //print('ADM3: ', adm3);
+
+// var adm3_10177 = adm3.map(setGEFID);
+// print('ADM3: ', adm3_10177);
