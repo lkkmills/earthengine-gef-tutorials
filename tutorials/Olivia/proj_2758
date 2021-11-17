@@ -4,7 +4,7 @@
 // GEFID = 2758 //
 ///////////////////
 
-// Not running correctly, only displaying one polygon
+// SET-UP
 
 // Center the map on Vietnam
 Map.setCenter(108.326, 12.375, 8);
@@ -27,9 +27,9 @@ var project_id = 2758
 // Upload geoBoundaries Vietnam ADM2 data to GEE
 // REPLACE 'users/lkmills/geoBoundaries-VNM-ADM2' WITH YOUR SHAPEFILE ID
 var adm2 = ee.FeatureCollection('users/owachob/geoBoundaries-VNM-ADM2').filter(ee.Filter.or(
-  ee.Filter.eq("shapeName", 'Thành Phố Đồng Hới'),
-  ee.Filter.eq("shapeName", 'Qui Nhơn'),
-  ee.Filter.eq("shapeName", 'Nha Trang')))
+  ee.Filter.eq("shapeID", 'VNM-ADM2-81297802B59833040'),
+  ee.Filter.eq("shapeID", 'VNM-ADM2-81297802B11118549'),
+  ee.Filter.eq("shapeID", 'VNM-ADM2-81297802B59226728')))
   .map(setGEFID);
   
 Map.addLayer(adm2, {color: 'red'}, 'adm2');
