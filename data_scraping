@@ -1,4 +1,4 @@
-Map.setCenter(105.16, 16.24, 7);
+// Map.setCenter(105.16, 16.24, 7);
 
 var gef_merge = ee.FeatureCollection('users/lkmills/GEF_without_mekong');
 print(gef_merge);
@@ -1172,7 +1172,7 @@ Export.table.toDrive({
   selectors: ['GEFID', 'mean_2m_air_temperature_2017', 'mean_2m_air_temperature_2018','mean_2m_air_temperature_2019','mean_2m_air_temperature_2020'] 
 });
 
-var LST_Day_1km = ee.ImageCollection('MODIS/006/MOD11A2').select('LST_Day_1km').filter(ee.Filter.date('2000-01-01', '2020-07-27'));
+var LST_Day_1km = ee.ImageCollection('MODIS/006/MOD11A2').select('LST_Day_1km').filter(ee.Filter.date('2000-01-01', '2021-11-09'));
 
 var LST_Day_1km_func_2000 = function(feature) {
   var collection = ee.ImageCollection(LST_Day_1km.filterDate('2000-01-01', '2000-12-31'));
@@ -1473,12 +1473,12 @@ var LST_Day_1km_2021 = LST_Day_1km_2020.map(LST_Day_1km_func_2021);
 
 //print(LST_Day_1km_2020);
 
-Export.table.toDrive({
-  collection: LST_Day_1km_2016, 
-  description: 'LST_Day_1km_2000_2016', 
-  selectors: ['GEFID', 'LST_Day_1km_2000', 'LST_Day_1km_2001','LST_Day_1km_2002','LST_Day_1km_2003', 'LST_Day_1km_2004','LST_Day_1km_2005','LST_Day_1km_2006','LST_Day_1km_2007','LST_Day_1km_2008', 'LST_Day_1km_2009','LST_Day_1km_2010','LST_Day_1km_2011','LST_Day_1km_2012','LST_Day_1km_2013',
-  'LST_Day_1km_2014', 'LST_Day_1km_2015', 'LST_Day_1km_2016'] 
-});
+// Export.table.toDrive({
+//   collection: LST_Day_1km_2016, 
+//   description: 'LST_Day_1km_2000_2016', 
+//   selectors: ['GEFID', 'LST_Day_1km_2000', 'LST_Day_1km_2001','LST_Day_1km_2002','LST_Day_1km_2003', 'LST_Day_1km_2004','LST_Day_1km_2005','LST_Day_1km_2006','LST_Day_1km_2007','LST_Day_1km_2008', 'LST_Day_1km_2009','LST_Day_1km_2010','LST_Day_1km_2011','LST_Day_1km_2012','LST_Day_1km_2013',
+//   'LST_Day_1km_2014', 'LST_Day_1km_2015', 'LST_Day_1km_2016'] 
+// });
 
 Export.table.toDrive({
   collection: LST_Day_1km_2021, 
@@ -2631,17 +2631,17 @@ var pdsi_func_2019 = function(feature) {
   return feature.set({pdsi_2019: meanDictionary.get('pdsi')})
 };
 
-var pdsi_func_2020 = function(feature) {
-  var collection = ee.ImageCollection(pdsi.filterDate('2020-01-01', '2020-12-01'));
-  var clipped = collection.mean().clip(feature.geometry());
-  var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
-    geometry: feature.geometry(),
-    scale: 30,
-    maxPixels: 1e9
-  });
-  return feature.set({pdsi_2019: meanDictionary.get('pdsi')})
-};
+// var pdsi_func_2020 = function(feature) {
+//   var collection = ee.ImageCollection(pdsi.filterDate('2020-01-01', '2020-12-01'));
+//   var clipped = collection.mean().clip(feature.geometry());
+//   var meanDictionary = clipped.reduceRegion({
+//     reducer: ee.Reducer.mean(),
+//     geometry: feature.geometry(),
+//     scale: 30,
+//     maxPixels: 1e9
+//   });
+//   return feature.set({pdsi_2020: meanDictionary.get('pdsi')})
+// };
 
 
 var pdsi_2000 = gef_merge.map(pdsi_func_2000);
@@ -2664,16 +2664,50 @@ var pdsi_2016 = pdsi_2015.map(pdsi_func_2016);
 var pdsi_2017 = pdsi_2016.map(pdsi_func_2017);
 var pdsi_2018 = pdsi_2017.map(pdsi_func_2018);
 var pdsi_2019 = pdsi_2018.map(pdsi_func_2019);
-var pdsi_2020 = pdsi_2019.map(pdsi_func_2020);
-
 
 Export.table.toDrive({
   collection: pdsi_2020, 
   description: 'pdsi_2020', 
-  selectors: ['GEFID', 'pdsi_2000', 'pdsi_2001','pdsi_2002','pdsi_2003',
+  selectors: ['GEFID', 'GEFID', 'pdsi_2000', 'pdsi_2001','pdsi_2002','pdsi_2003',
   'pdsi_2004','pdsi_2005','pdsi_2006','pdsi_2007','pdsi_2008',
   'pdsi_2009','pdsi_2010','pdsi_2011','pdsi_2012','pdsi_2013',
-  'pdsi_2014', 'pdsi_2015', 'pdsi_2016', 'pdsi_2017', 'pdsi_2018','pdsi_2019', 'pdsi_2020'] 
+  'pdsi_2014', 'pdsi_2015', 'pdsi_2016', 'pdsi_2017', 'pdsi_2018','pdsi_2019'] 
+});
+
+var dataset = ee.ImageCollection('IDAHO_EPSCOR/TERRACLIMATE')
+                  .filter(ee.Filter.date('2019-01-01', '2019-12-31'));
+var maximumTemperature = dataset.select('pdsi');
+var maximumTemperatureVis = {
+  min: -300.0,
+  max: 300.0,
+  palette: [
+    '1a3678', '2955bc', '5699ff', '8dbae9', 'acd1ff', 'caebff', 'e5f9ff',
+    'fdffb4', 'ffe6a2', 'ffc969', 'ffa12d', 'ff7c1f', 'ca531a', 'ff0000',
+    'ab0000'
+  ],
+};
+Map.addLayer(maximumTemperature, maximumTemperatureVis, 'Maximum Temperature');
+
+var pdsi_func_2020 = function(feature) {
+  var collection = ee.ImageCollection(maximumTemperature);
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.mean(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({pdsi_2020: meanDictionary.get('pdsi')})
+};
+
+var pdsi_2020 = gef_merge.map(pdsi_func_2020);
+
+//print(pdsi_2020.first());
+
+Export.table.toDrive({
+  collection: pdsi_2020, 
+  description: 'pdsi_2020', 
+  selectors: ['GEFID', 'pdsi_2020'] 
 });
 
 var aet = ee.ImageCollection('IDAHO_EPSCOR/TERRACLIMATE').filter(ee.Filter.date('2000-01-01', '2020-12-01')).select('aet');
