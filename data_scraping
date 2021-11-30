@@ -1,17 +1,10 @@
-// Map.setCenter(105.16, 16.24, 7);
+Map.setCenter(105.16, 16.24, 7);
 
 var gef_merge = ee.FeatureCollection('users/lkmills/GEF_without_mekong');
 print(gef_merge);
 
 Map.addLayer(gef_merge, {color: 'green'}, 'gef_merge');
 
-// // Script to scrape data within each polygon of the GEF dataset
-
-// // If you need to pull data within a large number of polygons, GEE easily allows you to scrape
-// // this data and export it to a spreadsheet in your Google Drive. In this script, we import datasets
-// // and summarize the annual mean within each polygon between 2000 and 2021 (some datasets only extend to 2020).
-
-// General function to find mean NDVI within features and scale it properly.
 var modisNDVI = ee.ImageCollection('MODIS/006/MOD13Q1')
               .select('NDVI')
               .map(
@@ -23,9 +16,6 @@ var modisNDVI = ee.ImageCollection('MODIS/006/MOD13Q1')
                    
   }
 );
-
-// Below are separate functions to scrape NDVI within each polyon for each year 2000 - 2020.
-// The mean NDVI value is recorded for each year for each polygon and can be exported to Drive.
 
 var ndvi_func_2000 = function(feature) {
   var collection = ee.ImageCollection(modisNDVI.filterDate('2000-01-01', '2000-12-31'));
