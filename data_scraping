@@ -1,6 +1,7 @@
+Map.addLayer(105.16, 16.24, 7);
+
 var gef_merge = ee.FeatureCollection('''FILL IN FEATURECOLLECTION''');
-//print(gef_merge);
-//Map.addLayer(gef_merge, {color: 'purple'}, 'gef_merge');
+print(gef_merge);
 
 Map.addLayer(gef_merge, {color: 'green'}, 'gef_merge');
 
