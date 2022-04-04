@@ -1,7 +1,6 @@
-Map.setCenter(105.16, 16.24, 7);
-
-var gef_merge = ee.FeatureCollection('users/lkmills/GEF_without_mekong');
-print(gef_merge);
+var gef_merge = ee.FeatureCollection('''FILL IN FEATURECOLLECTION''');
+//print(gef_merge);
+//Map.addLayer(gef_merge, {color: 'purple'}, 'gef_merge');
 
 Map.addLayer(gef_merge, {color: 'green'}, 'gef_merge');
 
@@ -315,30 +314,30 @@ Export.table.toDrive({
 
 // Scrape nighttime lights data within each polygon.
 
-var nighttimeLights = ee.ImageCollection('NOAA/DMSP-OLS/NIGHTTIME_LIGHTS').filter(ee.Filter.date('2000-01-01', '2020-08-07')).select('avg_vis');
+var nighttimeLights = ee.ImageCollection('NOAA/DMSP-OLS/NIGHTTIME_LIGHTS').filter(ee.Filter.date('2000-01-01', '2020-08-07')).select('stable_lights');
 
 var nighttimeLights_func_2000 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2000-01-01', '2000-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2000: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2000: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2001 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2001-01-01', '2001-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2001: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2001: meanDictionary.get('stable_lights')})
 };
 
 
@@ -346,144 +345,144 @@ var nighttimeLights_func_2002 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2002-01-01', '2002-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2002: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2002: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2003 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2003-01-01', '2003-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2003: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2003: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2004 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2004-01-01', '2004-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2004: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2004: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2005 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2005-01-01', '2005-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2005: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2005: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2006 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2006-01-01', '2006-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2006: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2006: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2007 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2007-01-01', '2007-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2007: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2007: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2008 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2008-01-01', '2008-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2008: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2008: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2009 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2009-01-01', '2009-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2009: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2009: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2010 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2010-01-01', '2010-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2010: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2010: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2011 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2011-01-01', '2011-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2011: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2011: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2012 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2012-01-01', '2012-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2012: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2012: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_func_2013 = function(feature) {
   var collection = ee.ImageCollection(nighttimeLights.filterDate('2013-01-01', '2013-12-31'));
   var clipped = collection.mean().clip(feature.geometry());
   var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
+    reducer: ee.Reducer.sum(),
     geometry: feature.geometry(),
     scale: 30,
     maxPixels: 1e9
   });
-  return feature.set({avg_vis_2013: meanDictionary.get('avg_vis')})
+  return feature.set({stable_lights_2013: meanDictionary.get('stable_lights')})
 };
 
 var nighttimeLights_2000 = gef_merge.map(nighttimeLights_func_2000);
@@ -505,9 +504,9 @@ var nighttimeLights_2013 = nighttimeLights_2012.map(nighttimeLights_func_2013);
 Export.table.toDrive({
   collection: nighttimeLights_2013, 
   description: 'nighttimeLights_2013', 
-  selectors: ['GEFID', 'avg_vis_2000', 'avg_vis_2001', 'avg_vis_2002', 'avg_vis_2003', 'avg_vis_2004', 
-  'avg_vis_2005', 'avg_vis_2006', 'avg_vis_2007', 'avg_vis_2008', 'avg_vis_2009', 'avg_vis_2010', 
-  'avg_vis_2011', 'avg_vis_2012', 'avg_vis_2013'] 
+  selectors: ['shapeName', 'stable_lights_2000', 'stable_lights_2001', 'stable_lights_2002', 'stable_lights_2003', 'stable_lights_2004', 
+  'stable_lights_2005', 'stable_lights_2006', 'stable_lights_2007', 'stable_lights_2008', 'stable_lights_2009', 'stable_lights_2010', 
+  'stable_lights_2011', 'stable_lights_2012', 'stable_lights_2013'] 
 });
 
 // Scrape population data within each tile.
@@ -2621,17 +2620,17 @@ var pdsi_func_2019 = function(feature) {
   return feature.set({pdsi_2019: meanDictionary.get('pdsi')})
 };
 
-// var pdsi_func_2020 = function(feature) {
-//   var collection = ee.ImageCollection(pdsi.filterDate('2020-01-01', '2020-12-01'));
-//   var clipped = collection.mean().clip(feature.geometry());
-//   var meanDictionary = clipped.reduceRegion({
-//     reducer: ee.Reducer.mean(),
-//     geometry: feature.geometry(),
-//     scale: 30,
-//     maxPixels: 1e9
-//   });
-//   return feature.set({pdsi_2020: meanDictionary.get('pdsi')})
-// };
+var pdsi_func_2020 = function(feature) {
+  var collection = ee.ImageCollection(pdsi.filterDate('2020-01-01', '2020-12-01'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.mean(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({pdsi_2020: meanDictionary.get('pdsi')})
+};
 
 
 var pdsi_2000 = gef_merge.map(pdsi_func_2000);
@@ -2654,50 +2653,16 @@ var pdsi_2016 = pdsi_2015.map(pdsi_func_2016);
 var pdsi_2017 = pdsi_2016.map(pdsi_func_2017);
 var pdsi_2018 = pdsi_2017.map(pdsi_func_2018);
 var pdsi_2019 = pdsi_2018.map(pdsi_func_2019);
+var pdsi_2020 = pdsi_2019.map(pdsi_func_2020);
 
 Export.table.toDrive({
   collection: pdsi_2020, 
   description: 'pdsi_2020', 
-  selectors: ['GEFID', 'GEFID', 'pdsi_2000', 'pdsi_2001','pdsi_2002','pdsi_2003',
+  selectors: ['GEFID','pdsi_2000', 'pdsi_2001','pdsi_2002','pdsi_2003',
   'pdsi_2004','pdsi_2005','pdsi_2006','pdsi_2007','pdsi_2008',
   'pdsi_2009','pdsi_2010','pdsi_2011','pdsi_2012','pdsi_2013',
-  'pdsi_2014', 'pdsi_2015', 'pdsi_2016', 'pdsi_2017', 'pdsi_2018','pdsi_2019'] 
-});
-
-var dataset = ee.ImageCollection('IDAHO_EPSCOR/TERRACLIMATE')
-                  .filter(ee.Filter.date('2019-01-01', '2019-12-31'));
-var maximumTemperature = dataset.select('pdsi');
-var maximumTemperatureVis = {
-  min: -300.0,
-  max: 300.0,
-  palette: [
-    '1a3678', '2955bc', '5699ff', '8dbae9', 'acd1ff', 'caebff', 'e5f9ff',
-    'fdffb4', 'ffe6a2', 'ffc969', 'ffa12d', 'ff7c1f', 'ca531a', 'ff0000',
-    'ab0000'
-  ],
-};
-Map.addLayer(maximumTemperature, maximumTemperatureVis, 'Maximum Temperature');
-
-var pdsi_func_2020 = function(feature) {
-  var collection = ee.ImageCollection(maximumTemperature);
-  var clipped = collection.mean().clip(feature.geometry());
-  var meanDictionary = clipped.reduceRegion({
-    reducer: ee.Reducer.mean(),
-    geometry: feature.geometry(),
-    scale: 30,
-    maxPixels: 1e9
-  });
-  return feature.set({pdsi_2020: meanDictionary.get('pdsi')})
-};
-
-var pdsi_2020 = gef_merge.map(pdsi_func_2020);
-
-//print(pdsi_2020.first());
-
-Export.table.toDrive({
-  collection: pdsi_2020, 
-  description: 'pdsi_2020', 
-  selectors: ['GEFID', 'pdsi_2020'] 
+  'pdsi_2014', 'pdsi_2015', 'pdsi_2016', 'pdsi_2017', 'pdsi_2018','pdsi_2019',
+  'pdsi_2020'] 
 });
 
 var aet = ee.ImageCollection('IDAHO_EPSCOR/TERRACLIMATE').filter(ee.Filter.date('2000-01-01', '2020-12-01')).select('aet');
