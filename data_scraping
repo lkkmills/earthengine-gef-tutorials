@@ -1463,12 +1463,12 @@ var LST_Day_1km_2021 = LST_Day_1km_2020.map(LST_Day_1km_func_2021);
 
 //print(LST_Day_1km_2020);
 
-// Export.table.toDrive({
-//   collection: LST_Day_1km_2016, 
-//   description: 'LST_Day_1km_2000_2016', 
-//   selectors: ['GEFID', 'LST_Day_1km_2000', 'LST_Day_1km_2001','LST_Day_1km_2002','LST_Day_1km_2003', 'LST_Day_1km_2004','LST_Day_1km_2005','LST_Day_1km_2006','LST_Day_1km_2007','LST_Day_1km_2008', 'LST_Day_1km_2009','LST_Day_1km_2010','LST_Day_1km_2011','LST_Day_1km_2012','LST_Day_1km_2013',
-//   'LST_Day_1km_2014', 'LST_Day_1km_2015', 'LST_Day_1km_2016'] 
-// });
+Export.table.toDrive({
+   collection: LST_Day_1km_2016, 
+   description: 'LST_Day_1km_2000_2016', 
+   selectors: ['GEFID', 'LST_Day_1km_2000', 'LST_Day_1km_2001','LST_Day_1km_2002','LST_Day_1km_2003', 'LST_Day_1km_2004','LST_Day_1km_2005','LST_Day_1km_2006','LST_Day_1km_2007','LST_Day_1km_2008', 'LST_Day_1km_2009','LST_Day_1km_2010','LST_Day_1km_2011','LST_Day_1km_2012','LST_Day_1km_2013',
+   'LST_Day_1km_2014', 'LST_Day_1km_2015', 'LST_Day_1km_2016'] 
+ });
 
 Export.table.toDrive({
   collection: LST_Day_1km_2021, 
