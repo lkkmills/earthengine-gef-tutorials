@@ -505,7 +505,7 @@ var nighttimeLights_2013 = nighttimeLights_2012.map(nighttimeLights_func_2013);
 Export.table.toDrive({
   collection: nighttimeLights_2013, 
   description: 'nighttimeLights_2013', 
-  selectors: ['shapeName', 'stable_lights_2000', 'stable_lights_2001', 'stable_lights_2002', 'stable_lights_2003', 'stable_lights_2004', 
+  selectors: ['GEFID', 'stable_lights_2000', 'stable_lights_2001', 'stable_lights_2002', 'stable_lights_2003', 'stable_lights_2004', 
   'stable_lights_2005', 'stable_lights_2006', 'stable_lights_2007', 'stable_lights_2008', 'stable_lights_2009', 'stable_lights_2010', 
   'stable_lights_2011', 'stable_lights_2012', 'stable_lights_2013'] 
 });
