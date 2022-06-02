@@ -510,6 +510,123 @@ Export.table.toDrive({
   'stable_lights_2011', 'stable_lights_2012', 'stable_lights_2013'] 
 });
 
+// VIIRS
+
+var VIIRS_nighttimeLights = ee.ImageCollection('NOAA/VIIRS/DNB/MONTHLY_V1/VCMCFG').filter(ee.Filter.date('2014-01-01', '2022-01-01')).select('avg_rad');
+
+var VIIRS_nighttimeLights_func_2014 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2014-01-01', '2022-01-01'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2014: meanDictionary.get('avg_rad')})
+};
+
+var VIIRS_nighttimeLights_func_2015 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2015-01-01', '2015-12-31'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2015: meanDictionary.get('avg_rad')})
+};
+
+
+var VIIRS_nighttimeLights_func_2016 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2016-01-01', '2016-12-31'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2016: meanDictionary.get('avg_rad')})
+};
+
+var VIIRS_nighttimeLights_func_2017 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2017-01-01', '2017-12-31'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2017: meanDictionary.get('avg_rad')})
+};
+
+var VIIRS_nighttimeLights_func_2018 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2018-01-01', '2018-12-31'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2018: meanDictionary.get('avg_rad')})
+};
+
+var VIIRS_nighttimeLights_func_2019 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2019-01-01', '2019-12-31'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2019: meanDictionary.get('avg_rad')})
+};
+
+var VIIRS_nighttimeLights_func_2020 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2020-01-01', '2020-12-31'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2020: meanDictionary.get('avg_rad')})
+};
+
+var VIIRS_nighttimeLights_func_2021 = function(feature) {
+  var collection = ee.ImageCollection(VIIRS_nighttimeLights.filterDate('2021-01-01', '2021-12-31'));
+  var clipped = collection.mean().clip(feature.geometry());
+  var meanDictionary = clipped.reduceRegion({
+    reducer: ee.Reducer.sum(),
+    geometry: feature.geometry(),
+    scale: 30,
+    maxPixels: 1e9
+  });
+  return feature.set({avg_rad_2021: meanDictionary.get('avg_rad')})
+};
+
+var VIIRS_nighttimeLights_2014 = gef_merge.map(VIIRS_nighttimeLights_func_2014);
+var VIIRS_nighttimeLights_2015 = VIIRS_nighttimeLights_2014.map(VIIRS_nighttimeLights_func_2015);
+var VIIRS_nighttimeLights_2016 = VIIRS_nighttimeLights_2015.map(VIIRS_nighttimeLights_func_2016);
+var VIIRS_nighttimeLights_2017 = VIIRS_nighttimeLights_2016.map(VIIRS_nighttimeLights_func_2017);
+var VIIRS_nighttimeLights_2018 = VIIRS_nighttimeLights_2017.map(VIIRS_nighttimeLights_func_2018);
+var VIIRS_nighttimeLights_2019 = VIIRS_nighttimeLights_2018.map(VIIRS_nighttimeLights_func_2019);
+var VIIRS_nighttimeLights_2020 = VIIRS_nighttimeLights_2019.map(VIIRS_nighttimeLights_func_2020);
+var VIIRS_nighttimeLights_2021 = VIIRS_nighttimeLights_2020.map(VIIRS_nighttimeLights_func_2021);
+
+Export.table.toDrive({
+  collection: VIIRS_nighttimeLights_2021, 
+  description: 'VIIRS_nighttimeLights_2021', 
+  selectors: ['GEFID', 'avg_rad_2014', 'avg_rad_2015', 'avg_rad_2016', 'avg_rad_2017', 'avg_rad_2018', 
+  'avg_rad_2019', 'avg_rad_2020', 'avg_rad_2021'] 
+});
+
 // Scrape population data within each tile.
 
 var pop = ee.ImageCollection("CIESIN/GPWv411/GPW_Basic_Demographic_Characteristics").first().select('basic_demographic_characteristics');
